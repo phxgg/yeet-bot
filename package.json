@@ -4,6 +4,7 @@
   "description": "troll bot for my discord server",
   "main": "app.js",
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.0.20",
     "discord.js": "^12.3.1",
     "fluent-ffmpeg": "^2.1.2",
     "nodemon": "^2.0.5"
