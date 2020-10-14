@@ -6,7 +6,7 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 
 const client = new Discord.Client();
 
-const token = 'YourBotToken';
+const token = 'YourToken';
 const prefix = '.';
 
 client.on('ready', () => {
@@ -48,7 +48,7 @@ client.on('message', async msg => {
     //let arg1 = args[0];
 
     const voiceChannel = msg.member.voice.channel;
-    var connection;
+    var connection = null;
 
     switch (command)
     {
@@ -100,7 +100,7 @@ client.on('message', async msg => {
             break;
     }
 
-    if (isJoined) {
+    if (connection !== null) {
         if (availableCommands[command] !== null && availableCommands[command] !== undefined) {
             try {
                 if(isPlaying)
