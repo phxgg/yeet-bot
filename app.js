@@ -6,7 +6,7 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 
 const client = new Discord.Client();
 
-const token = 'NzY1NDExODEyNTA1NjgxOTYw.X4UbTA.jW0lciOeIjRtZzErvsB9AnMNvT8';
+const token = 'YourToken';
 const prefix = '.';
 
 client.on('ready', () => {
