@@ -111,6 +111,8 @@ client.on('message', async msg => {
                     return console.log('Please be in a voice channel first!');
                 }
 
+                console.log('this has continued');
+
                 isPlaying = true;
                 dispatcher = connection.play(`sounds/${availableCommands[command]}`);
     
