@@ -13,7 +13,10 @@ client.on('ready', () => {
     console.log(`[Yeet Bot] Logged in as ${client.user.tag}!`);
 });
 
+let voiceChannel = null;
+let connection = null;
 let dispatcher = null;
+
 let isPlaying = false;
 let isJoined = false;
 
@@ -47,17 +50,24 @@ client.on('message', async msg => {
 
     //let arg1 = args[0];
 
-    const voiceChannel = msg.member.voice.channel;
-    var connection = null;
+    try {
+        voiceChannel = msg.member.voice.channel;
+    } catch (err) {
+        voiceChannel = null;
+        console.error(`[yeet bot] voiceChannel: could not set instance: ${err}`);
+    }
 
     switch (command)
     {
         case 'join':
             try {
-                connection = await voiceChannel.join().then(con => {
-                    // connection = con; // this doesn't seem to work
+                /*connection = await voiceChannel.join().then(con => {
                     isJoined = true;
-                });
+                });*/
+
+                connection = await voiceChannel.join();
+                if (connection !== null)
+                    isJoined = true;
             } catch (err) {
                 voiceChannel.leave();
                 isPlaying = false;
@@ -109,8 +119,6 @@ client.on('message', async msg => {
                 if (!isJoined || !voiceChannel) {
                     return console.log('Please be in a voice channel first!');
                 }
-    
-                console.log('debug 1');
     
                 isPlaying = true;
                 dispatcher = connection.play(`sounds/${availableCommands[command]}`);
