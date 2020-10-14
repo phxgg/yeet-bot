@@ -32,6 +32,9 @@ const availableCommands = {
     run        : 'run.mp3',
     gay        : 'gay.mp3',
     illuminati : 'illuminati.mp3',
+    toxic      : 'toxic.mp3',
+    toto       : 'toto.mp3',
+    aha        : 'aha.mp3',
     stop       : null,
 };
 
