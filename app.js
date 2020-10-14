@@ -36,12 +36,12 @@ const availableCommands = {
 };
 
 client.on('message', async msg => {
+    // only admins
+    if (!msg.member.hasPermission('ADMINISTRATOR')) return;
+
     // Voice only works in guilds, if the message does not come from a guild,
     // we ignore it
     if (!msg.guild) return;
-
-    // only admins
-    if (!msg.member.hasPermission('ADMINISTRATOR')) return;
 
     if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
