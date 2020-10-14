@@ -1,0 +1,26 @@
+{
+  "name": "yeet-bot",
+  "version": "1.0.0",
+  "description": "troll bot for my discord server",
+  "main": "app.js",
+  "dependencies": {
+    "discord.js": "^12.3.1",
+    "fluent-ffmpeg": "^2.1.2",
+    "nodemon": "^2.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phxgg/yeet-bot.git"
+  },
+  "author": "phxgg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phxgg/yeet-bot/issues"
+  },
+  "homepage": "https://github.com/phxgg/yeet-bot#readme"
+}
