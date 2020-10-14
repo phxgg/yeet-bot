@@ -48,14 +48,13 @@ client.on('message', async msg => {
     //let arg1 = args[0];
 
     const voiceChannel = msg.member.voice.channel;
-
-    var connection = await msg.member.voice.channel.join();
+    var connection;
 
     switch (command)
     {
         case 'join':
             try {
-                connection = await voiceChannel.join().then(connection => {
+                connection = await voiceChannel.join().then(con => {
                     // connection = con; // this doesn't seem to work
                     isJoined = true;
                 });
@@ -101,18 +100,18 @@ client.on('message', async msg => {
             break;
     }
 
-    if (availableCommands[command] !== null && availableCommands[command] !== undefined) {
-        try {
-            if (isJoined) {
+    if (isJoined) {
+        if (availableCommands[command] !== null && availableCommands[command] !== undefined) {
+            try {
                 if(isPlaying)
                     return console.log(`Already playing something! Use ${prefix}stop to stop playing.`);
     
                 if (!isJoined || !voiceChannel) {
                     return console.log('Please be in a voice channel first!');
                 }
-
+    
                 console.log('this has continued');
-
+    
                 isPlaying = true;
                 dispatcher = connection.play(`sounds/${availableCommands[command]}`);
     
@@ -128,10 +127,10 @@ client.on('message', async msg => {
                         console.error(`[yeet bot] dispatcher error: ${error}`);
                     });
                 //});
+            } catch (err) {
+                isPlaying = false;
+                console.error(`[yeet bot] MAIN FUNCTION: Something went wrong: ${err}`);
             }
-        } catch (err) {
-            isPlaying = false;
-            console.error(`[yeet bot] MAIN FUNCTION: Something went wrong: ${err}`);
         }
     }
 });
