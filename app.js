@@ -6,7 +6,7 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 
 const client = new Discord.Client();
 
-const token = 'YourToken';
+const token = 'NzY1NDExODEyNTA1NjgxOTYw.X4UbTA.jW0lciOeIjRtZzErvsB9AnMNvT8';
 const prefix = '.';
 
 client.on('ready', () => {
@@ -35,6 +35,8 @@ const availableCommands = {
     toxic      : 'toxic.mp3',
     toto       : 'toto.mp3',
     aha        : 'aha.mp3',
+    baba       : 'baba.mp3',
+    soda       : 'soda.mp3',
     stop       : null,
 };
 
