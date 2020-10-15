@@ -1,3 +1,4 @@
-sounds/**
+sounds/
+node_modules/
 /run.bat
 /botToken.txt
