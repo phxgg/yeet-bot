@@ -145,8 +145,4 @@ client.on('message', async msg => {
     }
 });
 
-try {
-    client.login(token);
-} catch (err) {
-    console.log(`[ERROR] Could not connect to discord: ${err}`);
-}
+client.login(token);
