@@ -24,19 +24,17 @@ const availableCommands = {
     join       : null,
     dc         : null,
     knock      : 'knock.mp3',
-    creepy     : 'creepy.mp3',
-    scary      : 'scary.mp3',
     fbi        : 'fbi.mp3',
     mlgsad     : 'mlgsad.mp3',
     cena       : 'cena.mp3',
     run        : 'run.mp3',
-    gay        : 'gay.mp3',
-    illuminati : 'illuminati.mp3',
     toxic      : 'toxic.mp3',
     toto       : 'toto.mp3',
     aha        : 'aha.mp3',
     baba       : 'baba.mp3',
     soda       : 'soda.mp3',
+    chop       : 'chop.mp3',
+    bruh       : 'bruh.mp3',
     stop       : null,
 };
 
@@ -147,4 +145,8 @@ client.on('message', async msg => {
     }
 });
 
-client.login(token);
+try {
+    client.login(token);
+} catch (err) {
+    console.log(`[ERROR] Could not connect to discord: ${err}`);
+}
