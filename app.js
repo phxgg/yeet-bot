@@ -35,16 +35,26 @@ const availableCommands = {
     soda       : 'soda.mp3',
     chop       : 'chop.mp3',
     bruh       : 'bruh.mp3',
+    malph      : 'malph.mp3',
+    malphs     : 'malphs.mp3',
+    sion       : 'sion.mp3',
+    twitch     : 'twitch.mp3',
+    pentakill  : 'pentakill.mp3',
+    rengar     : 'rengar.mp3',
+    maokai     : 'maokai.mp3',
+    pasok      : 'PASOK.mp3',
+    fart       : 'fart.mp3',
     stop       : null,
 };
 
 client.on('message', async msg => {
-    // Only admins
-    if (!msg.member.hasPermission('ADMINISTRATOR')) return;
-
     // Voice only works in guilds, if the message does not come from a guild, we ignore it
     if (!msg.guild) return;
 
+    // Only users with specific role & admins
+    if (!msg.member.roles.cache.some(role => role.name === ':}')
+        && !msg.member.hasPermission('ADMINISTRATOR')) return;
+    
     if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
     const args = msg.content.slice(prefix.length).split(' ');
