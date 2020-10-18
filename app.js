@@ -6,7 +6,7 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 
 const client = new Discord.Client();
 
-const token = 'YourToken';
+const token = ''; // YourToken
 const prefix = '.';
 
 client.on('ready', () => {
@@ -18,7 +18,7 @@ let connection = null;
 let dispatcher = null;
 
 let isPlaying = false;
-let isJoined = false;
+let inVoice = false;
 
 const availableCommands = {
     join       : null,
@@ -71,6 +71,22 @@ client.on('message', async msg => {
 
     switch (command)
     {
+        case 'clear':
+            if (!msg.member.hasPermission('ADMINISTRATOR')) return;
+
+            try {
+                const channelId = msg.channel;
+                
+                for (var i = 0; i < 10; i++) {
+                    const messages = await channelId.messages.fetch({ limit: 100 }); // Fetch last 100 messages (max 100)
+                    //.then(msgs => msgs.first(msgs.size - 3)); // Remove the last 3 messages out of the collection to delete
+
+                    channelId.bulkDelete(messages, true);
+                }
+            } catch (err) {
+                console.error(`[yeet bot] clear(): ${err}`);
+            }
+            break;
         case 'join':
             try {
                 /*connection = await voiceChannel.join().then(con => {
@@ -79,19 +95,19 @@ client.on('message', async msg => {
 
                 connection = await voiceChannel.join();
                 if (connection !== null)
-                    isJoined = true;
+                    inVoice = true;
             } catch (err) {
                 voiceChannel.leave();
                 isPlaying = false;
-                isJoined = false;
+                inVoice = false;
                 console.error(`[yeet bot] join(): Something went wrong: ${err}`);
             }
             break;
         case 'dc':
-            try {
-                if (!isJoined || !voiceChannel)
-                    return;
+            if (!inVoice || !voiceChannel)
+                return;
 
+            try {
                 if (dispatcher)
                     dispatcher.end();
 
@@ -101,16 +117,13 @@ client.on('message', async msg => {
             }
 
             isPlaying = false;
-            isJoined = false;
+            inVoice = false;
             break;
         case 'stop':
-            if(!isPlaying)
+            if(!isPlaying || !inVoice || !voiceChannel)
                 return;
 
             try {
-                if(!isJoined || !voiceChannel)
-                    return;
-                
                 if (dispatcher)
                     dispatcher.end();
 
@@ -128,7 +141,7 @@ client.on('message', async msg => {
                 if(isPlaying)
                     return console.log(`Already playing something! Use ${prefix}stop to stop playing.`);
     
-                if (!isJoined || !voiceChannel) {
+                if (!inVoice || !voiceChannel) {
                     return console.log('Please be in a voice channel first!');
                 }
     

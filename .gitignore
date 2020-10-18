@@ -1,4 +1,5 @@
 sounds/
+docs/
 node_modules/
 /run.bat
 /botToken.txt
