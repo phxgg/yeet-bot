@@ -71,7 +71,7 @@ client.on('message', async msg => {
 
     switch (command)
     {
-        case 'clear':
+        /*case 'clear':
             if (!msg.member.hasPermission('ADMINISTRATOR')) return;
 
             try {
@@ -86,7 +86,7 @@ client.on('message', async msg => {
             } catch (err) {
                 console.error(`[yeet bot] clear(): ${err}`);
             }
-            break;
+            break;*/
         case 'join':
             try {
                 /*connection = await voiceChannel.join().then(con => {
@@ -97,7 +97,8 @@ client.on('message', async msg => {
                 if (connection !== null)
                     inVoice = true;
             } catch (err) {
-                voiceChannel.leave();
+                if(voiceChannel)
+                    voiceChannel.leave().catch(console.error);
                 isPlaying = false;
                 inVoice = false;
                 console.error(`[yeet bot] join(): Something went wrong: ${err}`);
@@ -111,7 +112,8 @@ client.on('message', async msg => {
                 if (dispatcher)
                     dispatcher.end();
 
-                voiceChannel.leave();
+                if(voiceChannel)
+                    voiceChannel.leave().catch(console.error);
             } catch (err) {
                 console.error(`[yeet bot] dc(): Something went wrong: ${err}`);
             }
