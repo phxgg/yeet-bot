@@ -69,22 +69,6 @@ client.on('message', async msg => {
 
     switch (command)
     {
-        /*case 'clear':
-            if (!msg.member.hasPermission('ADMINISTRATOR')) return;
-
-            try {
-                const channelId = msg.channel;
-                
-                for (var i = 0; i < 10; i++) {
-                    const messages = await channelId.messages.fetch({ limit: 100 }); // Fetch last 100 messages (max 100)
-                    //.then(msgs => msgs.first(msgs.size - 3)); // Remove the last 3 messages out of the collection to delete
-
-                    channelId.bulkDelete(messages, true);
-                }
-            } catch (err) {
-                console.error(`[yeet bot] clear(): ${err}`);
-            }
-            break;*/
         case 'join':
             try {
                 connection = await voiceChannel.join();
@@ -102,18 +86,6 @@ client.on('message', async msg => {
                 return;
 
             disconnect();
-
-            /*
-            try {
-                if (dispatcher)
-                    dispatcher.end().catch(console.error);
-
-                if(voiceChannel)
-                    voiceChannel.leave().catch(console.error);
-            } catch (err) {
-                console.error(`[yeet bot] dc(): Something went wrong: ${err}`);
-            }
-            */
 
             isPlaying = false;
             inVoice = false;
