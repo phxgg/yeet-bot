@@ -7,7 +7,6 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 
 const client = new Discord.Client();
 
-const token = ''; // YourToken
 const prefix = '.';
 
 client.on('ready', () => {
@@ -29,6 +28,25 @@ const availableCommands = {
     fbi        : 'fbi.mp3',
     mlgsad     : 'mlgsad.mp3',
     cena       : 'cena.mp3',
+    run        : 'run.mp3',
+    toxic      : 'toxic.mp3',
+    toto       : 'toto.mp3',
+    aha        : 'aha.mp3',
+    baba       : 'baba.mp3',
+    soda       : 'soda.mp3',
+    chop       : 'chop.mp3',
+    bruh       : 'bruh.mp3',
+    malph      : 'malph.mp3',
+    malphs     : 'malphs.mp3',
+    sion       : 'sion.mp3',
+    twitch     : 'twitch.mp3',
+    pentakill  : 'pentakill.mp3',
+    rengar     : 'rengar.mp3',
+    maokai     : 'maokai.mp3',
+    pasok      : 'PASOK.mp3',
+    fart       : 'fart.mp3',
+    nani       : 'nani.mp3',
+    devam      : 'devam.mp3',
 };
 
 function disconnect() {
@@ -148,4 +166,11 @@ client.on('message', async msg => {
     }
 });
 
-client.login(token);
+fs.readFile('./botToken.txt', 'utf8', (err, data) => {
+    if (err) {
+        console.error(`[yeet bot] ERROR reading botToken.txt: ${err}`);
+        return;
+    }
+
+    client.login(data);
+});
