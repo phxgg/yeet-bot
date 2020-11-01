@@ -1,6 +1,7 @@
 const Discord       = require('discord.js');
 const ffmpegPath    = require('@ffmpeg-installer/ffmpeg').path;
 const ffmpeg        = require('fluent-ffmpeg');
+const fs            = require('fs');
 
 ffmpeg.setFfmpegPath(ffmpegPath);
 
@@ -23,11 +24,11 @@ let inVoice = false;
 const availableCommands = {
     join       : null,
     dc         : null,
+    stop       : null,
     knock      : 'knock.mp3',
     fbi        : 'fbi.mp3',
     mlgsad     : 'mlgsad.mp3',
     cena       : 'cena.mp3',
-    stop       : null,
 };
 
 function disconnect() {
@@ -142,22 +143,31 @@ client.on('message', async msg => {
                 if (!inVoice || !voiceChannel) {
                     return console.log('Please be in a voice channel first!');
                 }
-    
-                isPlaying = true;
-                dispatcher = connection.play(`sounds/${availableCommands[command]}`);
-    
-                dispatcher
-                    .on('end', () => {
-                        isPlaying = false;
-                    })
-                    .on('finish', () => {
-                        isPlaying = false;
-                    })
-                    .on('error', (error) => {
-                        isPlaying = false;
-                        console.error(`[yeet bot] dispatcher error: ${error}`);
-                    });
-                //});
+
+                var soundPath = `./sounds/${availableCommands[command]}`;
+
+                // check if sound path exists
+                fs.access(soundPath, fs.F_OK, (err) => {
+                    if (err) {
+                        console.error(`[yeet bot] fs.access: ${err}`);
+                        return;
+                    }
+
+                    dispatcher = connection.play(soundPath);
+                    isPlaying = true;
+        
+                    dispatcher
+                        .on('end', () => {
+                            isPlaying = false;
+                        })
+                        .on('finish', () => {
+                            isPlaying = false;
+                        })
+                        .on('error', (error) => {
+                            isPlaying = false;
+                            console.error(`[yeet bot] dispatcher error: ${error}`);
+                        });
+                });
             } catch (err) {
                 isPlaying = false;
                 console.error(`[yeet bot] MAIN FUNCTION: Something went wrong: ${err}`);
