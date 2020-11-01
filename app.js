@@ -30,6 +30,20 @@ const availableCommands = {
     stop       : null,
 };
 
+function disconnect() {
+    try {
+        if (dispatcher)
+            dispatcher.end();
+
+        if (voiceChannel)
+            voiceChannel.leave();
+    } catch (err) {
+        dispatcher = null;
+        voiceChannel = null;
+        console.error(`[yeet bot] disconnect(): ${err}`);
+    }
+}
+
 client.on('message', async msg => {
     // Voice only works in guilds, if the message does not come from a guild, we ignore it
     if (!msg.guild) return;
@@ -72,16 +86,11 @@ client.on('message', async msg => {
             break;*/
         case 'join':
             try {
-                /*connection = await voiceChannel.join().then(con => {
-                    isJoined = true;
-                });*/
-
                 connection = await voiceChannel.join();
                 if (connection !== null)
                     inVoice = true;
             } catch (err) {
-                if(voiceChannel)
-                    voiceChannel.leave().catch(console.error);
+                disconnect();
                 isPlaying = false;
                 inVoice = false;
                 console.error(`[yeet bot] join(): Something went wrong: ${err}`);
@@ -91,15 +100,19 @@ client.on('message', async msg => {
             if (!inVoice || !voiceChannel)
                 return;
 
+            disconnect();
+
+            /*
             try {
                 if (dispatcher)
-                    dispatcher.end();
+                    dispatcher.end().catch(console.error);
 
                 if(voiceChannel)
                     voiceChannel.leave().catch(console.error);
             } catch (err) {
                 console.error(`[yeet bot] dc(): Something went wrong: ${err}`);
             }
+            */
 
             isPlaying = false;
             inVoice = false;
