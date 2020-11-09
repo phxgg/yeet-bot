@@ -40,6 +40,7 @@ fs.readdir('./sounds/', (err, list) => {
         var key = split.slice(0, split.length - 1).join("."); // remove the extension from the key
         availableCommands[key] = f;
     });
+    
     console.log('[INFO] Commands loaded!');
     console.log(availableCommands);
 });
@@ -63,7 +64,7 @@ client.on('message', async msg => {
     if (!msg.guild) return;
 
     // Only users with specific role & admins
-    if (!msg.member.roles.cache.some(role => role.name === ':}')
+    if (!msg.member.roles.cache.some(role => role.name === 'MONO TSIK BRO <3<3<3<3')
         && !msg.member.hasPermission('ADMINISTRATOR')) return;
     
     if (!msg.content.startsWith(prefix) || msg.author.bot) return;
